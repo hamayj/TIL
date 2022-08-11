@@ -1,0 +1,34 @@
+<script>
+    // ?. 문법
+    var user = {
+        name : 'kim',
+        // age : { value : 20 }
+    };
+
+    // console.log(user.age.value); // 여기서 코드 실행 중단.
+    console.log(user.age?.value)// 에러를 예방하는 코드를 짜면 좋아. .? 왼쪽이 비어있으면 오른쪽 안해주고 undefined 뜸.
+    // 중첩된 자료에서 유용한게 ?. -> . 한개로 들어갈 때는 없으면 그냥 바로 undefined 나옴.
+
+    document.querySelector('#a')?.innerHTML // 오류없이 잠깐 보고싶을 때 이렇게 이용가능.
+    // ? 문법은 에러를 해결하는 것이 아니라 에러를 잠깐 가려주는 것.
+
+    // ?? nullish coalescing 연산자  : 왼쪽이 undefined, null이면 오른쪽 보여줘.
+    // undefined, null을 체크하는 문법.
+    console.log( undefined ?? '으잉')
+
+    var user1;
+
+    console.log( user1 ); // 데이터가 3초 후에 도착하면?
+    console.log( user1 ?? '로딩중'); // 데이터가 3초 후에 도착하면?
+
+    // 문제
+     var obj = {
+         data: {
+             name: {
+                 id: 123,
+                 date: 456,
+             },
+         },
+     }
+     console.log(obj.date?.name?.id ?? '뭐요'); // 123
+</script>
