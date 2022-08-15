@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        div{
+            width: 80px;
+            height: 80px;
+            border-radius: 50px;
+            position: absolute;
+        }
+        .body1{
+            background-color: red;
+            z-index: 1;
+        }
+        .body2{
+            background-color: pink;
+            top: 30px;
+            left: 60px;
+            z-index: 2;
+        }
+        .body3{
+            background-color: gold;
+            top: 60px;
+            left:100px;
+            position: absolute;
+            z-index: 3;
+        }
+        .body4{
+            background-color: paleturquoise;
+            position:relative;
+            top:60px;
+            left: 150px;
+            z-index: 4;
+        }
+        .body5{
+            background-color: palegreen;
+            position: relative;
+            bottom: 20px;
+            left: 200px;
+            z-index: 5;
+        }
+        .eye_black{
+            background-color: black;
+            width:10px;
+            height: 10px;
+            top: 20px;
+            left: 10px;
+            z-index: 3;
+        }
+        .eye_white{
+            background-color: white;
+            width:25px;
+            height: 25px;
+            top:10px;
+            left: 10px;
+            z-index: 2;
+        }
+        img {
+            width:1000px;
+            height: 500px;
+            z-index: -1;
+        }
+                
+
+    </style>
+</head>
+<body>
+    <div class="caterpillar-body">
+        <div class="eye_black"></div>
+        <div class="eye_white"></div>
+        <div class="body1"></div>
+        <div class="body2"></div>
+        <div class="body3"></div>
+        <div class="body4"></div>
+        <div class="body5"></div>
+        <img src="grass.jpg">
+    </div>
+</body>
+</html>

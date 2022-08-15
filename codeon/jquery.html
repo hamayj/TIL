@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+
+        span{
+            background-color: green;
+        }
+
+        .b{
+            background-color: red;
+        }
+    
+        p{
+            background-color: yellow;
+        }
+    </style>
+    <script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+  <script>
+      function a(){
+          $(".b").text("<p> Hello </p>");
+      }
+  </script>
+</head>
+<body>
+    <span class="b">안녕?</span>
+    <span onClick="a();">클릭</span>
+    
+</body>
+</html>

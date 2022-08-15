@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background: cyan; 
+            /* 백그라운드랑 백그라운드컬러 차이? */
+            position: relative;
+            animation: 2s myanim;
+            animation-iteration-count: 10;
+        }
+
+        @keyframes myanim{
+            0% {left: 0px; top: 0px;}
+            25% {background-color:#FFDAB9; left:100px; top:0px;}
+            50% {background-color:tomato; left:200px; top:0px;}
+            75% {background-color:#DDA0DD; left:100px; top:0px;}
+            100% {background-color:cyan; left:0px; top:0px;}
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+</body>
+</html>

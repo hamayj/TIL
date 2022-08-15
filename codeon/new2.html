@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+        function submitjava(){
+            document.getElementById("div1").setAttribute("style","border:2px solid red;");
+
+        }
+
+        function submitjquery(){
+            $( "#div1" ).css( "border","2px dotted blue");
+        }
+    </script>
+</head>
+<body>
+    <div id="div1">안녕하세요</div>
+
+    <button type="button" onclick="submitjava();">변환1</button>
+    <button type="button" onclick="submitjquery();">변환2</button>    
+</body>
+</html>

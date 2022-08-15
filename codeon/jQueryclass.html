@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous">
+    </script>
+
+    <script>
+        function bigger(){
+        $(".first").addClass("sizeup");
+        }   
+
+        function white(){
+            $(".second").removeClass("second");
+        }
+
+        function pink(){
+            $(".third").switchClass("third","pink",5000);
+        }
+        function getfirst(){
+            if($("div").hasClass("first")){
+                $(".first").removeClass();
+            }
+        }
+    </script>
+    <style>
+
+        div{
+            width:100px;
+            height:100px;
+        }
+
+        .first{
+            background-color: red;
+        }
+
+        .second{
+            background-color: yellow;
+        }
+
+        .third{
+            background-color: blue;
+        }
+
+        .sizeup{
+            font-size:30px;
+        }
+
+        .pink{
+            background-color: pink;
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="jquery-ui.css">
+    <script src="jquery-ui.min.js"></script>
+    <script src="jquery-ui.js"></script>
+
+</head>
+<body>
+    <button type="button" onclick="bigger();">커져라</button>
+    <button type="button" onclick="white();">하얘져라</button>
+    <button type="button" onclick="pink();">핑크해져라</button>
+    <button type="button" onclick="getfirst();">첫 번째 div만 없어져라</button>
+    <div class="first">가나다</div>
+    <div class="second">라마바</div>
+    <div class="third">사아자</div>
+
+</body>
+</html>

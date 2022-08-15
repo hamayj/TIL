@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>margin, padding 공부</title>
+
+    <style>
+
+        div {
+            display: inline-block;
+            width: 200px;
+            height: 200px;
+            vertical-align: top; 
+        }
+
+        .div_red {
+            background-color: red;
+            margin-right: 20px;
+        }
+
+        .div_blue {
+            background-color: blue;
+            margin-left: 20px;
+            margin-top: 20px;
+            vertical-align: top;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="div_red">
+        padding을 지정하지 않아 글자들이 완전히 붙었네요. 하지만 margin-right를 지정했으니까 오른 쪽에 나올 태그는 간격을 두고 표시될 거에요.
+    </div>
+    <div class="div_blue">
+        padding-left와 padding-top을 지정했기 때문에 이 글자들은 약간 띄고 표시되고 있어요.
+    </div>
+</body>
+</html>

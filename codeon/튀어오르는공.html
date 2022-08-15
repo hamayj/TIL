@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #ball{
+            width: 50px;
+            height: 50px;
+            background: tomato;
+            position: absolute;
+            border-radius: 70%;
+            -webkit-animation-name: bounce;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-duration: 5s;
+        }
+
+        @-webkit-keyframe bounce{
+            from, to{
+                bottom:0px;
+                -webkit-animation-timing-function: ease-out;
+            }
+            50%{
+                bottom: 300px;
+                -webkit-animation-timing-function: ease-in;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="ball"></div>
+</body>
+</html>

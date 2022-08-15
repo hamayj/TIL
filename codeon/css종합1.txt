@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            div {
+                width: 80px;
+                height: 80px;
+                border-radius: 50px;
+                position: absolute;
+            }
+            .body_1 {
+                background-color: #2196F3;
+            }
+            .body_2 {
+                background-color: #1976D2;
+                top: 30px;
+                left: 60px;
+                z-index: 2;
+            }
+            .body_3 {
+                background-color: #0D47A1;
+                top: 60px;
+                left: 90px;
+                z-index: 3;
+            }
+            .body_4 {
+                background-color: #B2CCFF;
+                top: 60px;
+                left: 130px;
+                z-index: 4;
+            }
+            .body_5 {
+                background-color: #008299;
+                top: 60px;
+                left: 180px;
+             
+   z-index: 5;
+            }
+   .eye_black {
+    width:15px;
+    height:15px;
+    background-color: black;
+    top: 20px;
+    left:20px;
+    z-index: 3;
+   }
+   .eye_white {
+    width:30px;
+    height:30px;
+    background-color: white;
+    top: 15px;
+    left:20px;
+    z-index: 2;   
+   }
+        </style>
+    </head>
+    <body>
+  <div class="caterpillar-body">
+   <div class="eye_black"></div>
+   <div class="eye_white"></div>
+   <div class="body_1"></div>
+   <div class="body_2"></div>
+   <div class="body_3"></div>
+   <div class="body_4"></div>
+   <div class="body_5"></div>
+  </div>
+    </body>
+</html>

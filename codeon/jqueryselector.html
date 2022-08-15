@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script>
+        function a(){
+            alert($('p').parent('div').css('color','green'));
+        }
+        
+        function b(){
+            $('p').parent('div').css('color','green');
+        }
+
+    </script>
+</head>
+<body>
+    <button type="button" onclick="a();">버튼1</button>
+    <button type="button" onclick="b();">버튼2</button>
+    <div>
+        <p>어쩌구저쩌구</p>
+    </div>
+</body>
+</html>

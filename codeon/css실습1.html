@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .card > div {
+            margin-right:10px;
+            width: 200px;
+            height: 200px;
+            background-color: gray;
+        }
+    </style>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <script>
+        function a(){
+            $("#" + $("my_date").val()+"> div").append("<br><br>" + $ ("#my_input").val());
+        }
+    </script>
+</head>
+<body>
+    <input id="my_date" value="날짜">
+    <br>
+    <input id="my_input" value="추가할 내용">
+    <br><br>
+
+    <button type="button" onclick="a();">추가하기</button>
+    <br><br>
+
+    <div class="container">
+        <div class="card" id="1">
+            <div>1일</div>
+        </div>
+        <div class="card" id="2">
+            <div>2일</div>
+        </div>
+    </div>
+    
+
+</body>
+</html>

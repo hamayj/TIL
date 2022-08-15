@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <style>
+
+        img {
+            width: 200px;
+            height: 150px;
+        } 
+        /* 이미지를 여러개 사용할 때, 크기를 동일하게 지정하고 싶어서
+        img 태그 자체에 style을 걸어버렸음. */
+
+        .yom {
+            top: 110px;
+            left: 40px;
+            position: absolute;
+            transform: skewX(30deg);
+        } 
+        /* 각 이미지의 위치는 모두 달라야 하므로 클래스를 따로 부여한 것. */
+
+
+    </style>
+
+</head>
+<body>
+    <div class="yom">
+        <img src="yom.jpg" alt="yom">
+    </div>
+</body>
+</html>
