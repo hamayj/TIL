@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+        <script>
+        navigator.geolocation.getCurrentPosition(function (pos) {
+            console.log(pos);
+            var latitude = pos.coords.latitude;
+            var longitude = pos.coords.longitude;
+            alert("현재 위치는 : " + latitude + ", " + longitude);
+        });
+
+        function getData(){
+            //http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=Su%2FjD4AQWu0vPPnQkcm0dVbiPxWqLgUu6AN6Snk4oK0JGGr38kehRNwGQtPIWP9iZ7BzO%2FQccEWTlb5yAxsUPw%3D%3D&numOfRows=10&pageNo=1&base_date=20220817&dataType=JSON&base_time=0600&nx=55&ny=127
+            $.get(
+                '/test',
+                function(result) {
+                    console.log( result );
+                    console.log( result.body );
+                }
+            );
+            
+        }
+        function getAxios(){
+            let params = {
+                serviceKey: "Su%2FjD4AQWu0vPPnQkcm0dVbiPxWqLgUu6AN6Snk4oK0JGGr38kehRNwGQtPIWP9iZ7BzO%2FQccEWTlb5yAxsUPw%3D%3D",
+                numOfRows: 10,
+                pageNo:1,
+                base_date: "20220817",
+                dataType: "JSON",
+                base_time: "0600",
+                nx: 55,
+                ny: 127
+            }
+            axios({
+                method: "get",
+                url: "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst",
+                params: params
+            }).then((result) => {
+                console.log( result );
+            })
+        }
+        </script>
+    </head>
+
+    <body>
+        <button type="button" onclick="getAxios();">데이터 가져오기</button>
+        <button type="button" onclick="getData();">데이터 1가져오기</button>
+    </body>
+</html>

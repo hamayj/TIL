@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        async function func() {
+            return 1;
+        }
+        function func() {
+            return new Promise(function (resolve, reject){
+                resolve(1);
+            });
+        }
+
+        let a = func();
+        console.log(a); // 1
+        func().then( function(result){
+            console.log( "result : ", result );
+        }); // func()의 리턴값1이 then으로 넘어가서
+        
+    </script>
+</body>
+</html>

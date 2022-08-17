@@ -1,0 +1,33 @@
+<!-- 사용자의 현재위치를 요청. geolocation API는 비동기적으로 동작.
+위치를 요청하는 가장 간단한 형태는 다음과 같다. -->
+<script>
+    navigator.geolocation.getCurrentPosition(function (pos) {
+        console.log(pos);
+        var latitude = pos.coords.latitude;
+        var longitude = pos.coords.longitude;
+        alert("현재 위치는 : " + latitude + ", " + longitude);
+    });
+
+
+    
+    const API_KEY = '당신의 API 키를 여기에 기재하세요';
+
+    function onGeoOk(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        // console.log(`You live in ${latitude} and ${longitude}`);
+
+        fetch(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`,
+        )
+            .then(response => response.json())
+            .then(data => console.log(`온도 : ${data.main.temp}, 날씨 : ${data.weather[0].main}`));
+    }
+
+    function onGeoError() {
+        alert("Can't find you. No weather for you.");
+    }
+
+    navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
+</script>

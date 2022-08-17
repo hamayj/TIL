@@ -1,0 +1,64 @@
+<!-- 데이터를 내가 봐야되는건가 ㅠㅠㅠ
+허,, 여튼 openweatherAPI용이었던거라 실패. -->
+
+
+<body>
+<div class="js_weather"></div>
+</body>
+
+
+<script>
+const weather = document.querySelector(".js_weather");
+
+const COORDS = "coords";
+const API_key = "Su%2FjD4AQWu0vPPnQkcm0dVbiPxWqLgUu6AN6Snk4oK0JGGr38kehRNwGQtPIWP9iZ7BzO%2FQccEWTlb5yAxsUPw%3D%3D";
+
+function getWeather(lat, lng) {
+    fetch(`	http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0?lat=${lat}&lon=${lng}&appid=${API_key}&units=metric`
+    ).then(function (response) {
+        return response.json();
+    }).then(function (json) {
+        const temperature = json.main.temp;
+        const place = json.name;
+        weather.innerText = `지금 ${place}은 ${temperature}도 입니다.`
+    })
+}
+
+function saveCoords(coordsObj) {
+    localStorage.setItem(COORDS, JSON.stringify(coordsObj))
+}
+
+function handleGeoSuccess(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    const coordsObj = {
+        latitude,
+        longitude
+    }
+    saveCoords(coordsObj)
+    getWeather(latitude, longitude);
+}
+
+function handleGeoError() {
+    console.log("Can't access geolocation");
+}
+function askForCoords() {
+    navigator.geolocation.getCurrentPosition(handleGeoSuccess, handleGeoError);
+    // navigator.geolocation.getCurrentPosition(success[, error[, [options]])
+}
+
+function loadCoords() {
+    const loadedCoords = localStorage.getItem(COORDS);
+    if (loadedCoords === null) {
+        askForCoords();
+    } else {
+        const parseCoords = JSON.parse(loadedCoords);
+        getWeather(parseCoords.latitude, parseCoords.longitude);
+    }
+}
+
+function init() {
+    loadCoords();
+};
+init();
+</script>
