@@ -10,8 +10,13 @@ const Info = () => {
         //     name,nickname
         // );
         // console.log("마운트 될 때만 실행됩니다.");
+        console.log('effect');
         console.log(name);
-    }, [name]); // 왜 {} 처리 한걸까? 벗겨서 또 확인해보자.
+        return () => {
+            console.log('cleanup');
+            console.log(name);
+        };
+    }); // 왜 {} 처리 한걸까? 벗겨서 또 확인해보자.
     // {} 각각의 변수를 담은 객체로 처리해서 보여주겠다. (키:값 형태)
     // 마운트 될 때만 실행하고 싶을 때는 useEffect의 두번째 파라미터로 빈 배열 넣어주면 됨.
     // 배열 안에는 useState를 통해 관리하고 있는 상태를 넣어줘도 되고, props
