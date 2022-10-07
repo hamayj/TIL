@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>새 글</title>
+  <link rel='stylesheet' href='../../../css/style.css' />
+</head>
+
+<body>
+  <div class="ContentField">
+    <form action="/insert" method="post">
+      <!-- /insert페이지로 가도록 -->
+      <table frame=void>
+        <!-- void? -->
+        <tr>
+          <td colspan="2" style="height:10%; padding-top:3vh;">
+            <input type="text" name="title" placeholder="제목을 작성해주세요!">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="button" id="<%=id%>" value="파일 업로드" onclick="openChild(this)">
+            <!-- 파일 업로드 버튼을 누르면 자식 창이 열림. 이 창에서 파일 업로드 가능. -->
+            <!-- id를 어디서 설정해준거임..? -->
+            <span id="sInput"></span>
+            <a href="/uploadedFileDelete/<%=id%>">
+              <input type="button" value="업로드 취소" onclick="deleteFile()"></a>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="padding-top:20px;">
+            <textarea name="content" placeholder="내용을 작성해주세요!" required></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="text-align:right;">
+            <button type="submit">글 쓰기</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</body>
+
+</html>
