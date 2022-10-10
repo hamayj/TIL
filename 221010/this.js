@@ -22,4 +22,4 @@ var elon = {
 tony.foo(); // 50이라 생각했으나 170 출력
 elon.foo(); // 200생각 200출력.
 
-// console.log보기 위해 node this.js입력하니 콘솔 출력됨.
+// console.log보기 위해 node this.js입력 
