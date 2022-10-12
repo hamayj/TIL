@@ -20,13 +20,16 @@ function App() {
   const onSubmitHandler = (e) => {
     e.preventDefault(); // submit이 실행하는 기본 동작 막기.
     const text = e.target.text.value;
-    const done = e.target.done.value;
+    const done = e.target.done.checked; // value로 넣으면 체크된 값 알 수 없음. check박스니까 checked로 표시해주자.
     fetch('http://localhost:4000/api/todo', {
       method: 'POST', // 아무것도 안적으면 get요청이 됨.
+      header: {
+        'Content-Type' : 'application/json',
+      },
       body: JSON.stringify({
         text,
         done,
-      }) // 데이터를 보내줄 때는 body에 문자열로 직렬화를 해서 보내줌.
+      }), // 데이터를 보내줄 때는 body에 문자열로 직렬화를 해서 보내줌.
     }); 
   }; // 딱히 응답을 받아서 뭘 할건 아니기 때문에 요청만 보내고 끝내기.
 

@@ -23,6 +23,7 @@ app.get('/api/todo', (req, res) => {
 app.post('/api/todo', (req, res) => {
     const {text, done} = req.body; // 이렇게 body를 가져다 쓰려면 body-parser가 필요함.
     // 클라이언트에서 바디로 데이터를 보내면 꺼내쓰기 좋게 해주는 parser
+    console.log("req.body : ", req.body);
     todoList.push({
         id: id++,
         text,
