@@ -1,15 +1,19 @@
 // fetch 기본제공
 // axios 라이브러리 필요.
 
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 function App() {
   const [todoList, setTodoList] = useState(null); 
 
   const fetchData = () => {
-    fetch('http://localhost:4000/api/todo')
-      .then((response) => response.json())
-      .then((data) => setTodoList(data)); 
+    axios.get('http://localhost:4000/api/todo').then((response) => {
+      setTodoList(response.data);
+    });
+    // fetch('http://localhost:4000/api/todo')
+    //   .then((response) => response.json())
+    //   .then((data) => setTodoList(data)); 
   }; // 중복되는 부분을 함수로 따로 빼줬음.
 
   // 데이터를 띄우는 방법에 여러가지가 있겠지만 useState를 사용해서 띄워보자
