@@ -5,16 +5,21 @@ import { useEffect, useState } from 'react';
 
 function App() {
   const [todoList, setTodoList] = useState(null); 
+
+  const fetchData = () => {
+    fetch('http://localhost:4000/api/todo')
+    .then((response) => response.json())
+    .then((data) => setTodoList(data)); 
+  }; // 중복되는 부분을 함수로 따로 빼줬음.
+
   // 데이터를 띄우는 방법에 여러가지가 있겠지만 useState를 사용해서 띄워보자
   // 처음에 이렇게 null 값 넣어서 해도 되는건가?
 
   // 처음 컴포넌트 렌더링 될 때만 실행될 수 있게 useEffect사용. 
   // useState쓰면 계속 돌면서 update시켜서 console에 에러 많음
+  // fetch가 리렌더링 될때마다 실행되도록 코드를 짰기 때문에 계속 렌더링 됐었음.
   useEffect(() => {
-    fetch('http://localhost:4000/api/todo')
-    // fetch가 리렌더링 될때마다 실행되도록 코드를 짰기 때문에 계속 렌더링 됐었음.
-    .then((response) => response.json())
-    .then((data) => setTodoList(data)); 
+    fetchData();
   }, []); // 디텐던시 [] 넣으면 처음에만 실행됨.
 
   const onSubmitHandler = (e) => {
@@ -30,7 +35,10 @@ function App() {
         text,
         done,
       }), // 데이터를 보내줄 때는 body에 문자열로 직렬화를 해서 보내줌.
-    }); 
+    }).then(() => fetchData()); 
+      // useEffect로 첫 렌더링 될때만 화면 불러와지게 했으므로 바로바로 업데이트하기 위한 처리 과정 추가.
+      // 근데 코드가 중복됐기 때문에 나쁜 코드. 
+      // 코드 따로 빼줬다..
   }; // 딱히 응답을 받아서 뭘 할건 아니기 때문에 요청만 보내고 끝내기.
 
   return (
