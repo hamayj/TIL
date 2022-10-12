@@ -43,7 +43,8 @@ function App() {
       </form>
         {/* 옵셔널체이닝으로 투두가 없을 때는 undefined를 만들어서 렌더링이 되지 않도록 하기 */}
         {todoList?.map((todo) => (
-          <div key={todo.id}>
+          <div key={todo.id} style={{ display : 'flex' }}> 
+          {/* 보기가 안좋으니 display에 flex를 추가했음. */}
             <div>{todo.id}</div>
             <div>{todo.text}</div>
             <div>{todo.done ? 'Y':'N'}</div>
