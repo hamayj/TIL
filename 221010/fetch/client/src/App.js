@@ -8,8 +8,8 @@ function App() {
 
   const fetchData = () => {
     fetch('http://localhost:4000/api/todo')
-    .then((response) => response.json())
-    .then((data) => setTodoList(data)); 
+      .then((response) => response.json())
+      .then((data) => setTodoList(data)); 
   }; // 중복되는 부분을 함수로 따로 빼줬음.
 
   // 데이터를 띄우는 방법에 여러가지가 있겠지만 useState를 사용해서 띄워보자
@@ -19,8 +19,7 @@ function App() {
   // useState쓰면 계속 돌면서 update시켜서 console에 에러 많음
   // fetch가 리렌더링 될때마다 실행되도록 코드를 짰기 때문에 계속 렌더링 됐었음.
   useEffect(() => {
-    fetchData();
-  }, []); // 디텐던시 [] 넣으면 처음에만 실행됨.
+    fetchData()}, []); // 디텐던시 [] 넣으면 처음에만 실행됨.
 
   const onSubmitHandler = (e) => {
     e.preventDefault(); // submit이 실행하는 기본 동작 막기.
@@ -28,7 +27,7 @@ function App() {
     const done = e.target.done.checked; // value로 넣으면 체크된 값 알 수 없음. check박스니까 checked로 표시해주자.
     fetch('http://localhost:4000/api/todo', {
       method: 'POST', // 아무것도 안적으면 get요청이 됨.
-      header: {
+      headers: {
         'Content-Type' : 'application/json',
       },
       body: JSON.stringify({
