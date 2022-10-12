@@ -4,17 +4,30 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+const SERVER_URL = 'http://localhost:4000/api/todo';
+
 function App() {
   const [todoList, setTodoList] = useState(null); 
 
-  const fetchData = () => {
-    axios.get('http://localhost:4000/api/todo').then((response) => {
-      setTodoList(response.data);
-    });
-    // fetch('http://localhost:4000/api/todo')
+
+  // async로 보내는 법
+  const fetchData = async () => {
+    const response = await axios.get(SERVER_URL);
+    setTodoList(response.data);
+    };
+
+  // axios로 보내는 법. / 이전 코드가 fetch를 변수화 시킨 것으로 변수명만 바꾸면 됨.
+  // const fetchData = () => {
+  //   axios.get('http://localhost:4000/api/todo').then((response) => {
+  //     setTodoList(response.data);
+  //   });
+
+    // fetch로 보내는 법
+    // const fetchData = () => {
+    // fetch('http://localhost:4000/api/todo') 
     //   .then((response) => response.json())
-    //   .then((data) => setTodoList(data)); 
-  }; // 중복되는 부분을 함수로 따로 빼줬음.
+    //   .then((data) => setTodoList(data)); }
+   // 중복되는 부분을 함수로 따로 빼줬음.
 
   // 데이터를 띄우는 방법에 여러가지가 있겠지만 useState를 사용해서 띄워보자
   // 처음에 이렇게 null 값 넣어서 해도 되는건가?
@@ -25,20 +38,24 @@ function App() {
   useEffect(() => {
     fetchData()}, []); // 디텐던시 [] 넣으면 처음에만 실행됨.
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault(); // submit이 실행하는 기본 동작 막기.
     const text = e.target.text.value;
-    const done = e.target.done.checked; // value로 넣으면 체크된 값 알 수 없음. check박스니까 checked로 표시해주자.
-    fetch('http://localhost:4000/api/todo', {
-      method: 'POST', // 아무것도 안적으면 get요청이 됨.
-      headers: {
-        'Content-Type' : 'application/json',
-      },
-      body: JSON.stringify({
-        text,
-        done,
-      }), // 데이터를 보내줄 때는 body에 문자열로 직렬화를 해서 보내줌.
-    }).then(() => fetchData()); 
+    const done = e.target.done.checked; // value로 넣으면 체크된 값 알 수 없음. check박스니까  checked로 표시해주자.
+    await axios.post(SERVER_URL, {text,done});
+    fetchData();
+    // 데이터를 넣는 것은 두 번째 인자로.
+    // axios는 fetch에서 직렬화해줬던 부분, header에 콘텐트타입 넣던 것들을 생략 가능함.
+    // fetch('http://localhost:4000/api/todo', {
+    //   method: 'POST', // 아무것도 안적으면 get요청이 됨.
+    //   headers: {
+    //     'Content-Type' : 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     text,
+    //     done,
+    //   }), // 데이터를 보내줄 때는 body에 문자열로 직렬화를 해서 보내줌.
+    // }).then(() => fetchData()); 
       // useEffect로 첫 렌더링 될때만 화면 불러와지게 했으므로 바로바로 업데이트하기 위한 처리 과정 추가.
       // 근데 코드가 중복됐기 때문에 나쁜 코드. 
       // 코드 따로 빼줬다..
