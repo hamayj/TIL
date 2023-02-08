@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <!-- header.ejs 파일을 include하는 코드 -->
+    <!-- header, footer처럼 모든 페이지에 동일하게 추가돼야 하는 템플릿인 경우 include를 활용하면 좋음. -->
+    <% include header %> 
+
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+  </body>
+</html>
