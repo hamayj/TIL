@@ -11,6 +11,10 @@ var app = express();
 
 const models = require("./models/index.js");
 
+// form태그는 get, post 방식만 지원하므로 RESTful한 CRUD를 위해 사용하는 모듈
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
 // DB 연결
 models.sequelize.sync().then( () => {
   console.log("DB 연결 성공");

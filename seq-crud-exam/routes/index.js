@@ -18,6 +18,16 @@ router.get('/board', function(req, res, next){
   });
 });
 
+
+router.get('/board/:id', function(req, res, next){
+  const id = req.params.id;
+  models.post.findOne({ where: { id: id }}).then ( result => {
+    res.render('edit', {
+      post: result
+    });
+  });
+});
+
 router.post('/board', function(req, res, next){
   let body = req.body;
 
@@ -57,5 +67,39 @@ router.get('/edit/:id', function(req, res, next){
   });
 });
 
+// 글 수정
+router.put('/board/:id', function(req, res, next) {
+  let postID = req.params.id;
+  let body = req.body;
 
+  models.post.update({
+    title: body.editTitle,
+    writer: body.editWriter
+  }, {
+    where : { id: postID }
+  })
+  .then (result => {
+    console.log('데이터 수정 완료');
+    res.redirect('/board');
+  }) 
+  .catch( err => {
+    console.log('데이터 수정 실패');
+  });
+});
+
+// 글삭제 
+router.delete('/board/:id', function(req, res, next){
+  const postID = req.params.id;
+
+  models.post.destroy({
+    where: { id: postID }
+  })
+  .then( result => {
+    // res.redirect('/board');
+    res.send("<script>alert('삭제되었습니다.');location.href='/board';</script>");
+  })
+  .catch( err => {
+    console.log(" 데이터 삭제 실패! ");
+  });
+});
 module.exports = router;
