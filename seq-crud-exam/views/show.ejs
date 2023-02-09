@@ -39,6 +39,9 @@
                         <td><input type="submit" value="삭제하기"/></td>
                     </form>
                 </tr>
+                <!-- 댓글 뿌려주는 뷰 -->
+                <!-- 댓글이 없을 수 있으므로 if문으로 예외처리. 
+                한 게시글에 댓글 여러개 있을 수 있으므로 반복문으로 댓글 출력 -->
 
                 <form action="/reply/<%=post.id%>" method="post">
                     <tr>
@@ -49,6 +52,17 @@
                         <td><input type="submit" value="댓글 등록"></td>
                     </tr>
                 </form>
+                <div>
+                    <% if(post.replies){
+                        for(let reply of post.replies){ %>
+                        <tr>
+                            <td><%= reply.dataValues.writer %></td>
+                            <td><%= reply.dataValues.content %></td>
+                        </tr>
+                        <% } %>
+                    <% } %>
+                </div>
+
         </table>
         <hr>
     <% } %>

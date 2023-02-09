@@ -13,11 +13,49 @@ router.get('/', function(req, res, next) {
 /* findAll에 인자로 where 조건 전달 가능
 model.post.findAll({where : {writer: "hama"}})
 */
+/* 기존 문법
 router.get('/board', function(req, res, next){
-  models.post.findAll().then( result => {
+  models.post.findAll()
+  .then( result => {
+    models.post.findOne({
+      include: {
+        model: models.reply,
+        where: { postId : 4 }
+      }
+    })
+    .then ( result2 => {
+      console.log(result2.replies)
+    })
+    .catch(function(err){
+      console.log("err : ", err);
+    });
     res.render('show', {
       posts: result
     });
+  });
+});
+*/
+
+// 게시글 목록
+router.get('/board', async function(req, res, next) {
+  let result = await models.post.findAll();
+  if(result) {
+    for( let post of result ){
+      let result2 = await models.post.findOne({
+        include: {
+          model: models.reply,
+          where: {
+            postId : post.id
+          }
+        }
+      })
+      if(result2){
+        post.replies = result2.replies
+      }
+    }
+  }
+  res.render("show", {
+    posts: result
   });
 });
 
