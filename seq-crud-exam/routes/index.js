@@ -7,6 +7,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+
+
+// 게시글 목록
 /* findAll에 인자로 where 조건 전달 가능
 model.post.findAll({where : {writer: "hama"}})
 */
@@ -18,7 +21,7 @@ router.get('/board', function(req, res, next){
   });
 });
 
-
+// 게시글 조회
 router.get('/board/:id', function(req, res, next){
   const id = req.params.id;
   models.post.findOne({ where: { id: id }}).then ( result => {
@@ -28,6 +31,7 @@ router.get('/board/:id', function(req, res, next){
   });
 });
 
+// 게시글 등록
 router.post('/board', function(req, res, next){
   let body = req.body;
 
@@ -51,6 +55,7 @@ router.post('/board', function(req, res, next){
   });
 });
 
+// 게시글 조회
 router.get('/edit/:id', function(req, res, next){
   let postID = req.params.id;
   
@@ -102,4 +107,23 @@ router.delete('/board/:id', function(req, res, next){
     console.log(" 데이터 삭제 실패! ");
   });
 });
+
+// 댓글 등록
+router.post('/reply/:postID', function(req, res, next){
+  let postID = req.params.postID;
+  let body = req.body;
+
+  models.reply.create({
+    postId: postID,
+    writer: body.replyWriter,
+    content: body.replyContent
+  })
+  .then( results => {
+    res.redirect('/board');
+  })
+  .catch ( err => {
+    console.log(err);
+  });
+});
+
 module.exports = router;
