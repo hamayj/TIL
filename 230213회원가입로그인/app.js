@@ -7,6 +7,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const fileUploadRouter = require('./routes/upload');
 
 var app = express();
 
@@ -43,6 +44,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
+app.use('/upload', fileUploadRouter);
+app.use('/upload', express.static('uploads')); // 폴더 이름이 upload가 돼야하는 것 아닌가?
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
