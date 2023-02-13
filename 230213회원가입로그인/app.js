@@ -2,6 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+const session = require('express-session');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
@@ -10,6 +11,7 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 const models = require('./models/index.js');
+
 
 models.sequelize.sync().then(() => {
   console.log("DB 연결 성공!");
@@ -24,7 +26,19 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser()); // 요청 객체 req에 cookies 속성이 추가되고, 응답 객체 res에서 cookie() 메서드를 호출할 수 있음.
+
+// 해당 session 코드는 app.js의 적당한 상단에 위치해서 에러없이 동작됨.
+app.use(session({
+  key: 'sid', // 세션 키 값
+  secret: 'secret', // 세션의 비밀키, 쿠키 값의 변조를 막기 위해 이 값을 통해 세션을 암호화하여 저장.
+  resave: false, // 세션을 항상 저장할지 여부. (false를 권장)
+  saveUninitialized: true, // 세션이 저장되기 전에 uninitialize 상태로 만들어 저장.
+  cookie: { // 쿠키 설정
+    maxAge: 24000 * 60 * 60 // 쿠키 유효시간 24시간
+  }
+}));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);

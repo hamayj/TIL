@@ -7,22 +7,32 @@
     <title>로그인</title>
 </head>
 <body>
-    <h3>로그인</h3>
-    <form action="/user/login" method="post">
-        <table>
-            <tr>
-                <td>이메일 : </td>
-                <td><input type="text" name="userEmail"></td>
-            </tr>
-            <tr>
-                <td>비밀번호 : </td>
-                <td><input type="password" name="password"></td>
-            </tr>
-            <tr>
-                <!-- value는 input에 보이게 되는 값. 이 경우 버튼이 로그인이라고 표시되어 보임. -->
-                <td><input type="submit" value="로그인"></td>
-            </tr>
-        </table>
-    </form>
+    <!-- 로그인 상태와 비로그인 상태를 구분하는 것은 session 객체의 email 속성을 확인함으로써 가능 -->
+
+    <% if(session.email) { %>
+        <h3>로그인 성공</h3>
+        <form action="/user/logout" method="get">
+            <input type="submit" value="로그아웃">
+        </form>
+
+    <% } else { %>
+        <h3>로그인</h3>
+        <form action="/user/login" method="post">
+            <table>
+                <tr>
+                    <td>이메일 : </td>
+                    <td><input type="text" name="userEmail"></td>
+                </tr>
+                <tr>
+                    <td>비밀번호 : </td>
+                    <td><input type="password" name="password"></td>
+                </tr>
+                <tr>
+                    <!-- value는 input에 보이게 되는 값. 이 경우 버튼이 로그인이라고 표시되어 보임. -->
+                    <td><input type="submit" value="로그인"></td>
+                </tr>
+            </table>
+        </form>
+    <% } %>    
 </body>
 </html>
