@@ -33,7 +33,7 @@ router.post('/sign_up', function(req, res, next){
     password: hashPassword,
     salt: salt
   })
-  res.redirect('/users/sign_up');
+  res.redirect('/user/sign_up');
 
 //   models.user.create({
 //     name: body.userName,
@@ -46,6 +46,44 @@ router.post('/sign_up', function(req, res, next){
 //   .catch( err => {
 //     console.log(err);
 //   })
-})
+});
+
+// 메인
+router.get('/', function(req, res, next) {
+  res.send("환영~~ 대박 환영~~~ 어서와,,, 나가지마~~");
+});
+
+// 로그인 get
+router.get('/login', function(req, res, next) {
+  res.render('user/login');
+});
+
+// 로그인 post
+router.post('/login', async function(req, res, next) {
+  let body = req.body;
+
+  let result = await models.user.findOne({
+    where: {
+      email: body.userEmail
+    }
+  });
+  let dbPassword = result.dataValues.password;
+  let inputPassword = body.password;
+  let salt = result.dataValues.salt;
+  let hashPassword = crypto.createHash("sha512").update(inputPassword + salt).digest("hex");
+
+  console.log("hashPassword:",hashPassword);
+  console.log("inputPassword:",inputPassword);
+
+  if(dbPassword === hashPassword){
+    console.log("비밀번호 일치!");
+    res.redirect("/user");
+  } else {
+    console.log("비밀번호 불일치");
+    res.send("<script>alert('비밀번호를 확인하세요');history.back();</script>");
+  }
+});
+
 
 module.exports = router;
+  ``
