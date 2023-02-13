@@ -1,0 +1,61 @@
+<!-- 페이징을 위한 ejs 파일. 
+기존의 리스트 페이지를 수정해서 페이징 기능이 가능하도록 만들 것.
+어떤 식으로 페이지를 나누고 생기게 하는지 생각하면서 코딩 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=title%></title>
+    <link rel="stylesheet" href="/stylesheets/style.css"/>
+</head>
+<body>
+    <h1><%=title%></h1>
+    <a href="/board/write">글쓰기</a>
+    <table border="1">
+        <tr>
+            <td>번호</td>
+            <td>작성자</td>
+            <td>제목</td>
+            <td>조회수</td>
+            <td>수정일</td>
+            <td>등록일</td>        
+        </tr>
+        <!-- (page*page_num) - page_num : 처음 보여줘야 할 게시물을 찾음. 2페이지면 "(2*10)-10=10" 10번째 데이터부터 노출
+        page * page_num : 마지막으로 보여질 게시물 번호를 찾음. "2*10=20" 20번째 데이터까지 노출함.  -->
+        <%
+        for(let i=( page * page_num ) - page_num; i < ( page * page_num ); i++){
+            if(i > length){
+                i++;
+            } else {
+                let data = rows[i]
+                <!-- i값이 아직 전체 데이터보다 작으면 data에 담아서 list에 노출함. -->
+            %>
+            <tr>
+                <td><%= i + 1 %></td>
+                <td><%= data.name %></td>
+                <td><a href="/board/read/<%= data.idx %>"><% = data.title %></a></td>
+                <td><%= data.hit %></td>
+                <td><%= data.modidate %></td>
+                <td><%= data.regdate %></td>
+            </tr>
+            <% }
+            }
+            %>
+            <tr>
+                <td colspan="6">
+                    <%
+                    <!-- 전체 갯수와 페이지 노출 갯수를 나누어 총 페이지를 계산. -->
+                    for(let j=0; j< rows.length / page_num; j++){
+                    %>
+                    [<a href='/board/page/<%= j+1 %>'><%= j+1 %></a>]
+                    <%
+                    }
+                    %>
+                </td>
+            </tr>   
+    </table>
+</body>
+</html>
