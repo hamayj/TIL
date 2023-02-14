@@ -2,25 +2,9 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 
-// DiskStorage : 실제 로컬의 디스크에 파일을 저장함. 
-
-/** multer 객체의 diskStorage() 메서드를 호출하여, storage를 생성할 수 있음.
- * destination 속성은 파일이 저장될 경로를 작성하고,
- * 
- */
-let storage = multer.diskStorage({
-    destination: function(req, file, cb){
-        cb( null, 'upload/')
-    },
-// filename 속성은 file의 이름을 변경해서 저장함. 
-    filename: function(req, file, cb){
-        cb(null, file.originalname + "-" + Date.now())
-    }
-});
-
 // 1. multer 미들웨어 등록
 let upload = multer({
-    storage: storage
+    dest: "upload/"
 });
 /**
  * multer 미들웨어를 등록할 때 인자로 목적지( dest ) 프로퍼티가 추가된 객체를 전달했습니다.

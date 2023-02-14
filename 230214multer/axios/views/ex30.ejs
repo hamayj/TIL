@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>ex30.ejs</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+        <script>
+           function sendForm() {
+                var form = document.getElementById("form_info");
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/ex30",
+                    params: {
+                        name: form.name.value,
+                        gender: form.gender.value,
+                        year: form.year.value,
+                        month: form.month.value,
+                        day: form.day.value
+                    }
+                }).then((a) => { 
+                    return a.data;
+                }).then((b) => {
+                    console.log( b.data );
+                    alert( b.msg );
+                });
+            } 
+        </script>
+    </head>
+
+    <body>
+        <form id="form_info">
+            폼 전송 - 실습 <br>
+
+            이름 <input type="text" name="name" placeholder=""> <br>
+
+            성별 <input type="radio" name="gender" value="남자">남자
+            <input type="radio" name="gender" value="여자">여자 <br>
+
+            생년월일 
+            <select name="year">
+                <% for (var i=1950; i<=2022; i++) { %>
+                    <option value="<%=i %>"><%=i %></option>
+                <% } %>
+            </select> 년
+            <select name="month">
+                <% for (var j=1; j<=12; j++ ) { %>
+                    <option value="<%=j %>"><%=j %></option>
+                <% } %>
+            </select> 월
+            <select name="day">
+                <% for (var k=1; k<=31; k++ ) { %>
+                    <option value="<%=k %>"><%=k %></option>
+                <% } %>
+            </select> 일 <br>
+
+            관심사
+            <input type="checkbox" name="likes" value="여행">여행
+            <input type="checkbox" name="likes" value="패션">패션
+            <input type="checkbox" name="likes" value="음식">음식 <br>
+
+            <button type="button" onclick="sendForm();">회원가입</button>            
+        </form>
+    </body>
+</html>

@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <title>Axios</title>
+        <!-- Axios-->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        
+        <script>
+            function sendGet() {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/receive",
+                    params: {
+                        name: "codee"
+                    }
+                }).then((a) => { return a.data; })
+                .then((b) => {
+                    alert( b.msg );
+                });
+            }
+            function sendPost() {
+                // console.log("hi");
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/receive",
+                    data: {
+                        name: "codee"
+                    }
+                }).then((a) => { 
+                    //console.log(a.data.name); 
+                    return a.data;
+                }).then((b) => {
+                    console.log(b);
+                    alert( b.msg );
+                });
+            }
+            function sendForm() {
+                var form = document.getElementById("form_info");
+                console.log( form );
+                //checkValidity(): 검사, 모두 다 통과하면 true, 아니면 false 반환
+                var result = form.checkValidity();
+                if( !result ) {
+                    //reportValidity(): 검사결과를 보여준다.
+                    form.reportValidity();
+                    return false;
+                }
+                console.log( result );
+                // <input> name 속성값을 가져올수 있다.
+                // console.log( form.name.value );
+                // console.log( form.age.value );
+                // axios({
+                //     method: "post",
+                //     url: "http://localhost:8080/receive",
+                //     data: {
+                //         name: form.name.value
+                //     }
+                // }).then((a) => { 
+                //     return a.data;
+                // }).then((b) => {
+                //     console.log(b);
+                //     alert( b.msg );
+                // });
+            }
+        </script>
+    </head>
+    <body>    
+        <button onclick="sendPost();">sendPost</button>
+        <button onclick="sendGet();">sendGet</button>
+
+        <form id="form_info">
+            <!-- form 안의 button은 type을 주지 않으면 함수실행과 동시에 폼을 전송한다 (default type은 submit이기 때문)-->
+            <!-- 그러면 함수실행값을 확인하기도 전에 폼이 전송되어 원하는 값을 보기 힘들다 -->
+            
+            <!-- <input> name 속성값을 가져올수 있다.-->
+            <input type="text" name="name" required>
+            <input type="text" name="age" required>
+            <button type="button" onclick="sendForm();">sendForm</button>
+        </form>
+    </body>
+</html>
