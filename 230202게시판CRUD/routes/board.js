@@ -1,8 +1,35 @@
 const express = require('express');
+const multer = require('multer');
 const router = express.Router();
 const mysql_odbc = require('../db/db_conn')();
 const conn = mysql_odbc.init();
 // express와 데이터베이스를 연결하는 부분
+const fs = require('fs');
+
+const path = require('path');
+
+
+const upload = multer({
+    storage : multer.diskStorage({
+        destination(req, file, done){
+            done(null, 'public/img/');
+        },
+        filename(req, file, done){
+            // console.log("req : ", req);
+            // console.log("req.body: ", req.body);
+            console.log("file: ", file);
+            // console.log("req.file : ", req.file); req.file은 없음. 그냥 file로 접근하시길ㅎ
+            const ext = path.extname(file.originalname);
+            // Buffer로 처리해서 한글 이름 나오게 해줬음
+            const name = Buffer.from(file.originalname, 'latin1').toString('utf8');
+            console.log(name); // 파일 이름이 잘 들어가는 것 확인됨.
+            done(null, `${name}`);
+        },
+    }),
+    limits: { fileSize : 5 * 1024 * 1024 }, // 5MB
+});
+
+
 
 router.get('/list', function(req, res, next){
     res.redirect('/board/list/1');
@@ -24,12 +51,13 @@ router.get('/write', function(req, res, next) {
 });
 
 // post로 입력받아 데이터를 DB에 입력
-router.post('/write', function(req, res, next){
+router.post('/write', upload.single("image"), async function(req, res, next){
     // 데이터를 보기 쉽게 하기 위해 req 객체로 body 속성에서 input name 파라미터를 가져올 수 있음.
     const name = req.body.name;
     const title = req.body.title;
     const content = req.body.content;
     const passwd = req.body.passwd;
+    const image = `/img/${req.file.filename}`; // image 경로 만들기
     // data.변수로 해당 sql문에 컬럼이름으로 가져온다. 모든 데이터를 배열로 묶음.
     const datas = [name, title, content, passwd];
 
@@ -37,7 +65,11 @@ router.post('/write', function(req, res, next){
     const sql = "insert into board(name, title, content, regdate, modidate, passwd, hit) values(?, ?, ?, now(), now(), ?, 0)";
     // query 함수로 sql을 실행하고 datas에 변수내용을 매개변수로 맵핑하여 데이터가 입력됨.
     conn.query(sql, datas, function(err, rows){
-        if(err) console.error("err: ", err);
+        if(err) {
+            console.error("err: ", err);
+        } else {
+            console.log(" rows : " , JSON.stringify(rows));
+        }
         res.redirect("/board/list"); // 오류 없이 입력될시 list 페이지로 이동함.
     });
 });

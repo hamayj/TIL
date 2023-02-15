@@ -40,12 +40,14 @@ app.use(session({
   }
 }));
 
+// app.use('/uploads', express.static('upload'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/upload', fileUploadRouter);
-app.use('/upload', express.static('uploads')); // 폴더 이름이 upload가 돼야하는 것 아닌가?
+app.use('/upload', express.static('upload')); // 폴더 이름이 upload가 돼야하는 것 아닌가? 어 맞네
+// 경로 이상하면 사진이 안뜹니다 ^^,,,
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -62,5 +64,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 module.exports = app;

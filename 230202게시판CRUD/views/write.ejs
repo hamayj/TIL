@@ -11,7 +11,7 @@
     <h1><%=title%></h1>
     <!-- express와 데이터베이스를 연결하는 전송이므로 method를 꼭 post로 지정해야함.
     폼은 /board/write로 전송함. -->
-    <form action="/board/write" method="post">
+    <form action="/board/write" method="post" enctype="multipart/form-data">
         <table border="1">
             <!-- 각 데이터에 맞게 input 박스에 name값 그대로 파라미터로 넘어가게 됨. -->
             <tr>
@@ -25,6 +25,10 @@
             <tr>
                 <td>내용</td>
                 <td><textarea name="content" id="content" cols="30" rows="10" required></textarea></td>
+            </tr>
+            <tr>
+                <td>이미지</td>
+                <td><input type="file" name="image" /></td>
             </tr>
             <tr>
                 <td>패스워드</td>
