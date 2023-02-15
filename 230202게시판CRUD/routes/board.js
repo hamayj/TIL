@@ -78,9 +78,10 @@ router.post('/write', upload.single("image"), async function(req, res, next){
 router.get("/read/:idx/", function(req, res, next){ // read라는 uri 뒤에 idx 게시글의 고유번호를 받음.
     const idx = req.params.idx;
     // 매개변수에 idx를 전달.
-    const sql = "select idx, name, title, content, hit, date_format(modidate,'%Y-%m-%d %H:%i:%s') modidate, " + "date_format(regdate, '%Y-%m-%d %H:%i:%s') regdate from board where idx=?";
+    const sql = "select idx, name, title, content, hit, date_format(modidate,'%Y-%m-%d %H:%i:%s') modidate, " + "date_format(regdate, '%Y-%m-%d %H:%i:%s') regdate, image from board where idx=?";
     conn.query(sql, [idx], function(err, row) {
         if(err) console.error(err);
+        console.log("이미지 보여줘", row[0].image);
         // row[0]에 데이터를 렌더링 함. 한개의 데이터만 가져오도록 첫번째 행만 요청.
         // 상세보기는 하나의 글을 확인하기 때문에 한개에 행만 가져오지만 필요에 따라 여러행을 다루기도 함.
         res.render('read', {title: '글 상세', row:row[0]});

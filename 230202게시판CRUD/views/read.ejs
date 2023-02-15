@@ -16,7 +16,6 @@
     <form action="/board/update" method="post">
         <table border="1">
             <!-- 여기까지 row값 및 row.idx가 잘 들어오는 것까지 확인됨. -->
-            <% console.log(row.idx); %>
             <!-- ... vaule에도 넣어줘야 넘어가는군...  -->
             <input type="hidden" name="idx" id="<%=row.idx%>" value="<%=row.idx%>"/>
             <tr>
@@ -29,7 +28,7 @@
             </tr>
             <tr>
                 <td>내용</td>
-                <td><textarea name="content" id="content" cols="30" rows="10" required><%=row.content%></textarea></td>
+                <td><img src="../public/img/고양이.jpg" alt="img" width=40vw/><br><textarea name="content" id="content" required><%=row.content%></textarea></td>
             </tr>
             <tr>
                 <td>패스워드</td>
