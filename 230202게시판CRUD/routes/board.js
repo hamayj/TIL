@@ -57,12 +57,12 @@ router.post('/write', upload.single("image"), async function(req, res, next){
     const title = req.body.title;
     const content = req.body.content;
     const passwd = req.body.passwd;
-    const image = `/img/${req.file.filename}`; // image 경로 만들기
+    const image = `public/img/${req.file.filename}`; // image 경로 만들기
     // data.변수로 해당 sql문에 컬럼이름으로 가져온다. 모든 데이터를 배열로 묶음.
-    const datas = [name, title, content, passwd];
+    const datas = [name, title, content, passwd, image];
 
     // insert 쿼리문을 작성함. '?' 매개변수로 배열에 있는 데이터와 순서대로 맵핑되어 입력됨.
-    const sql = "insert into board(name, title, content, regdate, modidate, passwd, hit) values(?, ?, ?, now(), now(), ?, 0)";
+    const sql = "insert into board(name, title, content, regdate, modidate, passwd, hit, image) values(?, ?, ?, now(), now(), ?, 0, ?)";
     // query 함수로 sql을 실행하고 datas에 변수내용을 매개변수로 맵핑하여 데이터가 입력됨.
     conn.query(sql, datas, function(err, rows){
         if(err) {
